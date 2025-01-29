@@ -1,0 +1,20 @@
+### Get Account
+GET http://localhost:8080/api/accounts
+
+### Post with body
+POST http://localhost:8080/api/accounts
+Content-Type: application/json
+
+{
+  "firstName": "Lamin",
+  "lastName": "Saidy",
+  "jobTitle": "System Developer",
+  "department": "IT",
+  "salary": 16000,
+  "hireDate": "",
+  "email": "lamin.saidy@braintrust.com",
+  "mobileNumber": "076-3527380"
+}
+
+### DELETE with body
+DELETE http://localhost:8080/api/accounts/6
