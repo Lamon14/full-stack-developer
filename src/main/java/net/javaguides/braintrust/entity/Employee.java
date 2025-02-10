@@ -51,10 +51,4 @@ public class Employee {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn (name = "fk_employee_id", referencedColumnName = "id")
     private Set<ProjectAssignment> projectAssignments;
-
-    /*
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_department_id", referencedColumnName = "id")
-    private Department department;*/
-
 }
