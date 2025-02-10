@@ -30,6 +30,7 @@ public class Project {
     @Column(name = "type")
     private String type;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "startdate")
     private LocalDate date;
 

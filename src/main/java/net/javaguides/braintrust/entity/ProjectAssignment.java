@@ -24,6 +24,7 @@ public class ProjectAssignment {
     @Column(name = "projectassignment_name", insertable=false, updatable=false)
     private String projectAssignmentName;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "date", insertable=false, updatable=false)
     private LocalDate date;
 }
