@@ -2,6 +2,8 @@ package net.javaguides.braintrust.service.impl;
 
 import net.javaguides.braintrust.dto.EmployeeDto;
 import net.javaguides.braintrust.entity.Employee;
+import net.javaguides.braintrust.entity.ProjectAssignment;
+import net.javaguides.braintrust.entity.RoleAssignment;
 import net.javaguides.braintrust.exceptionhandler.ResourceNotFoundException;
 import net.javaguides.braintrust.mapper.EmployeeMapper;
 import net.javaguides.braintrust.repository.EmployeeRepository;
@@ -11,6 +13,7 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -59,11 +62,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setFirstName(updatedEmployee.getFirstName());
         employee.setLastName(updatedEmployee.getLastName());
         employee.setJobTitle(updatedEmployee.getJobTitle());
-        employee.setDepartment(updatedEmployee.getDepartment());
         employee.setSalary(updatedEmployee.getSalary());
         employee.setHireDate(updatedEmployee.getHireDate());
         employee.setEmail(updatedEmployee.getEmail());
         employee.setMobileNumber(updatedEmployee.getMobileNumber());
+        employee.setRoleAssignment((Set<RoleAssignment>) updatedEmployee.getRoleAssignment());
+        employee.setProjectAssignments((Set<ProjectAssignment>) updatedEmployee.getProjectAssignment());
 
         Employee updatedEmployeeObj = employeeRepository.save(employee);
         return EmployeeMapper.mapToEmployeeDto(updatedEmployeeObj);

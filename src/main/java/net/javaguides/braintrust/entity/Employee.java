@@ -7,18 +7,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "employee")
 @Entity
+@Table(name = "employee")
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  // Automatically generates unique ID
-    @Column(name = "employee_id")  // Specify column name
+    @Column(name = "id")  // Specify column name
     private long id;
 
     @Column(name = "first_name", nullable = false)  // Column for first name, cannot be null
@@ -29,9 +30,6 @@ public class Employee {
 
     @Column(name = "job_title")
     private String jobTitle;
-
-    @Column(name = "department")
-    private String department;
 
     @Column(name = "salary")
     private double salary;
@@ -45,5 +43,18 @@ public class Employee {
 
     @Column(name = "mobile_number")
     private String mobileNumber;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn (name = "fk_employee_id", referencedColumnName = "id")
+    private Set<RoleAssignment> roleAssignment;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn (name = "fk_employee_id", referencedColumnName = "id")
+    private Set<ProjectAssignment> projectAssignments;
+
+    /*
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_department_id", referencedColumnName = "id")
+    private Department department;*/
 
 }
