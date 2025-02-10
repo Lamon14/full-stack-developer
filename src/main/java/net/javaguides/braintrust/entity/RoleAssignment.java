@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -22,5 +22,5 @@ public class RoleAssignment {
     private long id;
 
     @Column(name = "assignment_date")
-    private Date assignmentDate;
+    private LocalDate assignmentDate;
 }

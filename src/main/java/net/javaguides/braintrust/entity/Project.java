@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Getter
@@ -31,7 +31,7 @@ public class Project {
     private String type;
 
     @Column(name = "startdate")
-    private Date date;
+    private LocalDate date;
 
     @Column(name = "duration")
     private String duration;

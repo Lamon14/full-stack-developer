@@ -18,14 +18,14 @@ import java.util.Set;
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)  // Automatically generates unique ID
-    @Column(name = "id")  // Specify column name
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
 
-    @Column(name = "first_name", nullable = false)  // Column for first name, cannot be null
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)  // Column for last name, cannot be null
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @Column(name = "job_title")
@@ -34,11 +34,11 @@ public class Employee {
     @Column(name = "salary")
     private double salary;
 
-    @Temporal(TemporalType.DATE)  // Use @Temporal to map java.util.Date to SQL DATE
+    @Temporal(TemporalType.DATE)
     @Column(name = "hire_date")
     private LocalDate hireDate;
 
-    @Column(name = "email", unique = true, nullable = false)  // Column for email, unique and non-null
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
     @Column(name = "mobile_number")
