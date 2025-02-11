@@ -1,13 +1,8 @@
 package net.javaguides.braintrust.mapper;
 
-import lombok.Data;
 import net.javaguides.braintrust.dto.EmployeeDto;
 import net.javaguides.braintrust.entity.Employee;
-import net.javaguides.braintrust.entity.ProjectAssignment;
-import net.javaguides.braintrust.entity.RoleAssignment;
 
-import java.util.List;
-import java.util.Set;
 
 public class EmployeeMapper {
 
@@ -20,10 +15,7 @@ public class EmployeeMapper {
                 employeeDto.getSalary(),
                 employeeDto.getHireDate(),
                 employeeDto.getEmail(),
-                employeeDto.getMobileNumber(),
-                (Set<RoleAssignment>) employeeDto.getRoleAssignment(),
-                (Set<ProjectAssignment>) employeeDto.getProjectAssignment()
-
+                employeeDto.getMobileNumber()
         );
     }
 
@@ -36,9 +28,7 @@ public class EmployeeMapper {
                 employee.getSalary(),
                 employee.getHireDate(),
                 employee.getEmail(),
-                employee.getMobileNumber(),
-                (RoleAssignment) employee.getRoleAssignment(),
-                (ProjectAssignment) employee.getProjectAssignments()
+                employee.getMobileNumber()
         );
     }
 }

@@ -1,15 +1,11 @@
 package net.javaguides.braintrust.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.Set;
+import java.util.List;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -27,8 +23,8 @@ public class Location {
     @Column(name = "country")
     private String country;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn (name = "fk_location_id", referencedColumnName = "id")
-    private Set<Department> departments;
+    private List<Department> departments;
 
 }

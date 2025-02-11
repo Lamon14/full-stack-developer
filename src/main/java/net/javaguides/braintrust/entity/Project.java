@@ -1,16 +1,12 @@
 package net.javaguides.braintrust.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -37,7 +33,7 @@ public class Project {
     @Column(name = "duration")
     private String duration;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn (name = "fk_project_id", referencedColumnName = "id")
-    private Set<ProjectAssignment> projectAssignment;
+    private List<ProjectAssignment> projectAssignment;
 }

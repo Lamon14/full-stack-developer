@@ -1,16 +1,11 @@
 package net.javaguides.braintrust.entity;
 
-
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -44,11 +39,14 @@ public class Employee {
     @Column(name = "mobile_number")
     private String mobileNumber;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     @JoinColumn (name = "fk_employee_id", referencedColumnName = "id")
-    private Set<RoleAssignment> roleAssignment;
+    private List<RoleAssignment> roleAssignment;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     @JoinColumn (name = "fk_employee_id", referencedColumnName = "id")
-    private Set<ProjectAssignment> projectAssignments;
+    private List<ProjectAssignment> projectAssignments;
+
+    public Employee(long id, String firstName, String lastName, String jobTitle, double salary, LocalDate hireDate, String email, String mobileNumber) {
+    }
 }
