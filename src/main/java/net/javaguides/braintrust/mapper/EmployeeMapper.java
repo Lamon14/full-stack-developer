@@ -3,7 +3,6 @@ package net.javaguides.braintrust.mapper;
 import net.javaguides.braintrust.dto.EmployeeDto;
 import net.javaguides.braintrust.entity.Employee;
 
-
 public class EmployeeMapper {
 
     public static Employee mapToEmployee(EmployeeDto employeeDto){
