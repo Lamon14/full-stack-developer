@@ -15,7 +15,7 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "employee_id")
     private long id;
 
     @Column(name = "first_name")
@@ -40,14 +40,12 @@ public class Employee {
     @Column(name = "mobile_number")
     private String mobileNumber;
 
-    @OneToMany
-    @JoinColumn (name = "fk_employee_id", referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn (name = "fk_employee_id", referencedColumnName = "employee_id")
     private List<RoleAssignment> roleAssignment;
 
-    @OneToMany
-    @JoinColumn (name = "fk_employee_id", referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn (name = "fk_employee_id", referencedColumnName = "employee_id")
     private List<ProjectAssignment> projectAssignments;
 
-    public Employee(long id, String firstName, String lastName, String jobTitle, double salary, LocalDate hireDate, String email, String mobileNumber) {
-    }
 }

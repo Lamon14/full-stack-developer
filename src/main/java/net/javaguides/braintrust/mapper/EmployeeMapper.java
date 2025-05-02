@@ -6,28 +6,34 @@ import net.javaguides.braintrust.entity.Employee;
 public class EmployeeMapper {
 
     public static Employee mapToEmployee(EmployeeDto employeeDto){
-        return new Employee(
-                employeeDto.getId(),
-                employeeDto.getFirstName(),
-                employeeDto.getLastName(),
-                employeeDto.getJobTitle(),
-                employeeDto.getSalary(),
-                employeeDto.getHireDate(),
-                employeeDto.getEmail(),
-                employeeDto.getMobileNumber()
-        );
+        if (employeeDto == null) return null;
+
+        Employee employee = new Employee();
+        employee.setId(employeeDto.getId());
+        employee.setFirstName(employeeDto.getFirstName());
+        employee.setLastName(employeeDto.getLastName());
+        employee.setJobTitle(employeeDto.getJobTitle());
+        employee.setSalary(employeeDto.getSalary());
+        employee.setHireDate(employeeDto.getHireDate());
+        employee.setEmail(employeeDto.getEmail());
+        employee.setMobileNumber(employeeDto.getMobileNumber());
+
+        return employee;
     }
 
     public static EmployeeDto mapToEmployeeDto(Employee employee){
-        return new EmployeeDto(
-                employee.getId(),
-                employee.getFirstName(),
-                employee.getLastName(),
-                employee.getJobTitle(),
-                employee.getSalary(),
-                employee.getHireDate(),
-                employee.getEmail(),
-                employee.getMobileNumber()
-        );
+        if (employee == null) return null;
+
+        EmployeeDto dto = new EmployeeDto();
+        dto.setId(employee.getId());
+        dto.setFirstName(employee.getFirstName());
+        dto.setLastName(employee.getLastName());
+        dto.setJobTitle(employee.getJobTitle());
+        dto.setSalary(employee.getSalary());
+        dto.setHireDate(employee.getHireDate());
+        dto.setEmail(employee.getEmail());
+        dto.setMobileNumber(employee.getMobileNumber());
+
+        return dto;
     }
 }

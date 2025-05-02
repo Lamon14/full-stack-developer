@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import net.javaguides.braintrust.dto.EmployeeDto;
 import net.javaguides.braintrust.exceptionhandler.ResourceNotFoundException;
 import net.javaguides.braintrust.service.EmployeeService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,9 +38,9 @@ public class EmployeeController {
 
     // Get All Employees REST API
     @GetMapping
-    public ResponseEntity<List<EmployeeDto>> getAllAccounts(){
-        List<EmployeeDto> accounts = employeeService.getAllEmployees();
-        return ResponseEntity.ok(accounts);
+    public ResponseEntity<List<EmployeeDto>> getAllEmployees(){
+        List<EmployeeDto> employees = employeeService.getAllEmployees();
+        return ResponseEntity.ok(employees);
     }
 
     // Delete Employee REST API

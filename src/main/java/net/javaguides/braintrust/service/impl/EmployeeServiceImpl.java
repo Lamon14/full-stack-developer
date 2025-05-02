@@ -2,22 +2,21 @@ package net.javaguides.braintrust.service.impl;
 
 import net.javaguides.braintrust.dto.EmployeeDto;
 import net.javaguides.braintrust.entity.Employee;
-import net.javaguides.braintrust.entity.ProjectAssignment;
-import net.javaguides.braintrust.entity.RoleAssignment;
 import net.javaguides.braintrust.exceptionhandler.ResourceNotFoundException;
 import net.javaguides.braintrust.mapper.EmployeeMapper;
 import net.javaguides.braintrust.repository.EmployeeRepository;
 import net.javaguides.braintrust.service.EmployeeService;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
+
+    Logger logger = LogManager.getLogger(EmployeeServiceImpl.class);
 
     private EmployeeRepository employeeRepository;
 
@@ -28,8 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
         Employee employee = EmployeeMapper.mapToEmployee(employeeDto);
-        Employee saveEmployee = employeeRepository.save(employee);
-        return EmployeeMapper.mapToEmployeeDto(saveEmployee);
+        return EmployeeMapper.mapToEmployeeDto(employeeRepository.save(employee));
     }
     @Override
     public EmployeeDto getEmployeeById(Long id) {
@@ -40,7 +38,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
     @Override
     public List<EmployeeDto> getAllEmployees() {
+        logger.info("We are starting by finding all employees");
         List<Employee> employees = employeeRepository.findAll();
+        logger.info("We are returning all employees");
         return employees.stream().map(EmployeeMapper::mapToEmployeeDto)
                 .collect(Collectors.toList());
     }
