@@ -2,10 +2,12 @@ package net.javaguides.braintrust.mapper;
 
 import net.javaguides.braintrust.dto.EmployeeDto;
 import net.javaguides.braintrust.entity.Employee;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EmployeeMapper {
 
-    public static Employee mapToEmployee(EmployeeDto employeeDto){
+    public Employee mapToEmployee(EmployeeDto employeeDto){
         if (employeeDto == null) return null;
 
         Employee employee = new Employee();
@@ -21,7 +23,7 @@ public class EmployeeMapper {
         return employee;
     }
 
-    public static EmployeeDto mapToEmployeeDto(Employee employee){
+    public EmployeeDto mapToEmployeeDto(Employee employee){
         if (employee == null) return null;
 
         EmployeeDto dto = new EmployeeDto();

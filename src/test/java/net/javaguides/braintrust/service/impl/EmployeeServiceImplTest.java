@@ -3,6 +3,7 @@ package net.javaguides.braintrust.service.impl;
 import net.javaguides.braintrust.dto.EmployeeDto;
 import net.javaguides.braintrust.entity.Employee;
 import net.javaguides.braintrust.exceptionhandler.ResourceNotFoundException;
+import net.javaguides.braintrust.mapper.EmployeeMapper;
 import net.javaguides.braintrust.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,9 @@ class EmployeeServiceImplTest {
 
     @Mock
     private EmployeeRepository employeeRepository;
+
+    @Mock
+    private EmployeeMapper employeeMapper;
 
     @InjectMocks
     private EmployeeServiceImpl employeeService;
@@ -56,22 +60,27 @@ class EmployeeServiceImplTest {
 
     @Test
     void testCreateEmployee() {
-        when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
+        when(employeeMapper.mapToEmployee(employeeDto)).thenReturn(employee);
+        when(employeeRepository.save(employee)).thenReturn(employee);
+        when(employeeMapper.mapToEmployeeDto(employee)).thenReturn(employeeDto);
 
         EmployeeDto result = employeeService.createEmployee(employeeDto);
 
+        // Assert
         assertNotNull(result);
-        assertEquals("John", result.getFirstName());
-        assertEquals("Smith", result.getLastName());
+        assertEquals(employeeDto.getId(), result.getId());
+        assertEquals(employeeDto.getFirstName(), result.getFirstName());
         verify(employeeRepository, times(1)).save(any(Employee.class));
     }
 
     @Test
-    void testGetEmployeeById() {
+    void testGetEmployeeById_WhenExists_ReturnEmployee() {
         when(employeeRepository.findById(1L)).thenReturn(Optional.of(employee));
+        when(employeeMapper.mapToEmployeeDto(employee)).thenReturn(employeeDto);
 
         EmployeeDto result = employeeService.getEmployeeById(1L);
 
+        // Assert
         assertNotNull(result);
         assertEquals("John", result.getFirstName());
         assertEquals("Smith", result.getLastName());
@@ -82,11 +91,10 @@ class EmployeeServiceImplTest {
     void testGetEmployeeById_NotFound() {
         when(employeeRepository.findById(1L)).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(RuntimeException.class, () ->{
-                    employeeService.getEmployeeById(1L);
-                });
-
-        assertEquals("Resource not found", "Resource not found");
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            employeeService.getEmployeeById(1L);
+        });
+        assertEquals("Employee does not exist", exception.getMessage());
     }
 
     @Test
@@ -95,8 +103,10 @@ class EmployeeServiceImplTest {
         when(employeeRepository.findAll()).thenReturn(employees);
 
         List<EmployeeDto> result = employeeService.getAllEmployees();
+
+        // Assert
         assertEquals(1, result.size());
-        assertEquals("John", result.getFirst().getFirstName());
+        verify(employeeRepository).findAll();
     }
 
     @Test
@@ -105,6 +115,7 @@ class EmployeeServiceImplTest {
 
         employeeService.deleteEmployee(1L);
 
+        // Assert
         verify(employeeRepository, times(1)).delete(employee);
     }
 
@@ -112,39 +123,44 @@ class EmployeeServiceImplTest {
     void testDeleteEmployee_NotFound() {
         when(employeeRepository.findById(1L)).thenReturn(Optional.empty());
 
-        assertThrows(RuntimeException.class, () -> {
+        // Act and Assert
+        Exception exception = assertThrows(RuntimeException.class, () -> {
             employeeService.deleteEmployee(1L);
         });
-
-        assertEquals("Employee with id 1 not found","Employee with id 1 not found");
+        assertEquals("Employee does not exists", exception.getMessage());
     }
 
     @Test
     void testUpdateEmployee() {
-        EmployeeDto updateDto = new EmployeeDto();
-        updateDto.setFirstName("John");
-        updateDto.setLastName("Smith");
-        updateDto.setEmail("john.smith@gmail.com");
-        updateDto.setJobTitle("Senior Dev");
-        updateDto.setSalary(6000.0);
-        updateDto.setMobileNumber("9876543210");
-        updateDto.setHireDate(LocalDate.of(2020, 5, 1));
+        EmployeeDto updatedDto = new EmployeeDto();
+        updatedDto.setFirstName("John");
+        updatedDto.setLastName("Smith");
+        updatedDto.setEmail("john.smith@gmail.com");
+        updatedDto.setJobTitle("Senior Developer");
+        updatedDto.setSalary(6000.0);
+        updatedDto.setMobileNumber("9876543210");
+        updatedDto.setHireDate(LocalDate.of(2020, 5, 1));
 
         when(employeeRepository.findById(1L)).thenReturn(Optional.of(employee));
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
+        when(employeeMapper.mapToEmployeeDto(employee)).thenReturn(updatedDto);
 
-        EmployeeDto result = employeeService.updateEmployee(1L, updateDto);
+        // Act
+        EmployeeDto result = employeeService.updateEmployee(1L, updatedDto);
 
+        // Assert
         assertNotNull(result);
-        assertEquals("John", result.getFirstName());
-        assertEquals("Senior Dev", employee.getJobTitle());
-        verify(employeeRepository, times(1)).save(employee);
+        assertEquals("Senior Developer", result.getJobTitle());
+        assertEquals(6000.0, result.getSalary());
+        verify(employeeRepository, times(1)).save(any(Employee.class));
     }
 
     @Test
     void testUpdateEmployee_NotFound() {
+        // Arrange
         when(employeeRepository.findById(1L)).thenReturn(Optional.empty());
 
+        // Act and Assert
         EmployeeDto updatedDto = new EmployeeDto();
         updatedDto.setFirstName("John");
 

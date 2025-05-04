@@ -18,30 +18,33 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     Logger logger = LogManager.getLogger(EmployeeServiceImpl.class);
 
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
+    private final EmployeeMapper employeeMapper;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmployeeMapper employeeMapper) {
+
         this.employeeRepository = employeeRepository;
+        this.employeeMapper = employeeMapper;
     }
 
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
-        Employee employee = EmployeeMapper.mapToEmployee(employeeDto);
-        return EmployeeMapper.mapToEmployeeDto(employeeRepository.save(employee));
+        Employee employee = employeeMapper.mapToEmployee(employeeDto);
+        return employeeMapper.mapToEmployeeDto(employeeRepository.save(employee));
     }
     @Override
     public EmployeeDto getEmployeeById(Long id) {
         Employee employee = employeeRepository
                 .findById(id)
                 .orElseThrow(()-> new RuntimeException("Employee does not exist"));
-        return EmployeeMapper.mapToEmployeeDto(employee);
+        return employeeMapper.mapToEmployeeDto(employee);
     }
     @Override
     public List<EmployeeDto> getAllEmployees() {
         logger.info("We are starting by finding all employees");
         List<Employee> employees = employeeRepository.findAll();
         logger.info("We are returning all employees");
-        return employees.stream().map(EmployeeMapper::mapToEmployeeDto)
+        return employees.stream().map(employeeMapper::mapToEmployeeDto)
                 .collect(Collectors.toList());
     }
     @Override
@@ -68,6 +71,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setMobileNumber(updatedEmployee.getMobileNumber());
 
         Employee updatedEmployeeObj = employeeRepository.save(employee);
-        return EmployeeMapper.mapToEmployeeDto(updatedEmployeeObj);
+        return employeeMapper.mapToEmployeeDto(updatedEmployeeObj);
     }
 }

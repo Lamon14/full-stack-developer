@@ -2,6 +2,7 @@ package net.javaguides.braintrust.dto;
 
 import lombok.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,4 +17,6 @@ public class EmployeeDto {
     private LocalDate hireDate;
     private String email;
     private String mobileNumber;
+    private List<RoleAssignmentDTO> roleAssignment;
+    private List<ProjectAssignmentDTO> projectAssignments;
 }
