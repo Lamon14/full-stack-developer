@@ -1,22 +1,22 @@
 package net.javaguides.braintrust.mapper;
 
-import net.javaguides.braintrust.dto.RoleAssignmentDTO;
+import net.javaguides.braintrust.dto.RoleAssignmentDto;
 import net.javaguides.braintrust.entity.RoleAssignment;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RoleAssignmentMapper {
 
-    public RoleAssignmentDTO toDTO(RoleAssignment entity) {
+    public RoleAssignmentDto toDTO(RoleAssignment entity) {
         if (entity == null) return null;
 
-        return new RoleAssignmentDTO(
+        return new RoleAssignmentDto(
                 entity.getId(),
                 entity.getAssignmentDate()
         );
     }
 
-    public RoleAssignment toEntity(RoleAssignmentDTO dto) {
+    public RoleAssignment toEntity(RoleAssignmentDto dto) {
         if (dto == null) return null;
 
         RoleAssignment entity = new RoleAssignment();

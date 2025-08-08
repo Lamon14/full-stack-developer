@@ -17,6 +17,6 @@ public class EmployeeDto {
     private LocalDate hireDate;
     private String email;
     private String mobileNumber;
-    private List<RoleAssignmentDTO> roleAssignment;
-    private List<ProjectAssignmentDTO> projectAssignments;
+    private List<RoleAssignmentDto> roleAssignment;
+    private List<ProjectAssignmentDto> projectAssignments;
 }

@@ -17,10 +17,10 @@ public class ProjectAssignment {
     @Column(name = "id")  // Specify column name
     private long id;
 
-    @Column(name = "projectassignment_name", insertable=false, updatable=false)
+    @Column(name = "projectassignment_name")
     private String projectAssignmentName;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "date", insertable=false, updatable=false)
+    @Column(name = "date")
     private LocalDate date;
 }

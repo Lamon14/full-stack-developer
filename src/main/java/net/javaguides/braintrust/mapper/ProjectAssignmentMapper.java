@@ -1,23 +1,25 @@
 package net.javaguides.braintrust.mapper;
 
-import net.javaguides.braintrust.dto.ProjectAssignmentDTO;
+import net.javaguides.braintrust.dto.ProjectAssignmentDto;
 import net.javaguides.braintrust.entity.ProjectAssignment;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProjectAssignmentMapper {
 
-    public static ProjectAssignmentDTO toDTO(ProjectAssignment entity) {
-        if (entity == null) return null;
+    public ProjectAssignmentDto projectAssignDto(ProjectAssignment projectAssignment) {
+        if (projectAssignment == null) return null;
 
-        return new ProjectAssignmentDTO(
-                entity.getId(),
-                entity.getProjectAssignmentName(),
-                entity.getDate()
-        );
+        ProjectAssignmentDto projectAssignmentDto = new ProjectAssignmentDto();
+        projectAssignmentDto.setId(projectAssignment.getId());
+        projectAssignmentDto.setProjectAssignmentName(projectAssignment.getProjectAssignmentName());
+        projectAssignmentDto.setDate(projectAssignment.getDate());
+
+        return projectAssignmentDto;
+
     }
 
-    public static ProjectAssignment toEntity(ProjectAssignmentDTO dto) {
+    public ProjectAssignment projectAssignment(ProjectAssignmentDto dto) {
         if (dto == null) return null;
 
         ProjectAssignment entity = new ProjectAssignment();

@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectAssignmentDTO {
+public class ProjectAssignmentDto {
     private long id;
     private String projectAssignmentName;
     private LocalDate date;
