@@ -29,17 +29,16 @@ public class ProjectAssignmentServiceImpl implements ProjectAssignmentService {
     }
 
     @Override
-    public ProjectAssignmentDto getById(Long id) {
+    public ProjectAssignmentDto getProjectAssignmentsById(Long id) {
         ProjectAssignment projectAssignment = projectAssignmentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("ProjectAssignment not found: " + id));
         return projectAssignmentMapper.projectAssignDto(projectAssignment);
     }
 
     @Override
-    public List<ProjectAssignmentDto> getAll() {
+    public List<ProjectAssignmentDto> getAllProjectAssignment() {
         List<ProjectAssignment> projectAssignments = projectAssignmentRepository.findAll();
-        return projectAssignmentRepository.findAll().stream()
-                .map(projectAssignmentMapper::projectAssignDto)
+        return projectAssignments.stream().map(projectAssignmentMapper::projectAssignDto)
                 .collect(Collectors.toList());
     }
 
@@ -55,7 +54,7 @@ public class ProjectAssignmentServiceImpl implements ProjectAssignmentService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void deleteProjectAssignment(Long id) {
 
         projectAssignmentRepository.deleteById(id);
     }

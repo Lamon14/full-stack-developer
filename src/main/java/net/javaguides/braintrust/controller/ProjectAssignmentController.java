@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 @AllArgsConstructor
@@ -23,12 +25,26 @@ public class ProjectAssignmentController {
         return new ResponseEntity<>(saveProjectAssignment, HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<ProjectAssignmentDto> getAllProjectAssignments(@PathVariable("id") Long id) {
-        ProjectAssignmentDto projectAssignmentDto = projectAssignmentService.getById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<ProjectAssignmentDto> getProjectAssignmentsById(@PathVariable("id") Long id) {
+        ProjectAssignmentDto projectAssignmentDto = projectAssignmentService.getProjectAssignmentsById(id);
         if (projectAssignmentDto == null) {
             throw new ResourceNotFoundException("ProjectAssignment is not found" + id);
         }
         return ResponseEntity.ok(projectAssignmentDto);
+    }
+
+    // Get All Employees REST API
+    @GetMapping
+    public ResponseEntity<List<ProjectAssignmentDto>> getAllProjectAssignments(){
+        List<ProjectAssignmentDto> projectAssignment = projectAssignmentService.getAllProjectAssignment();
+        return ResponseEntity.ok(projectAssignment);
+    }
+
+    // Delete ProjectAssignment REST API
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteProjectAssignment(@PathVariable("id") Long id){
+        projectAssignmentService.deleteProjectAssignment(id);
+        return ResponseEntity.ok("ProjectAssignment is deleted successfully!");
     }
 }

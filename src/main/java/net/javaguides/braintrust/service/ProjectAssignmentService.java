@@ -7,11 +7,11 @@ import java.util.List;
 public interface ProjectAssignmentService {
     ProjectAssignmentDto create(ProjectAssignmentDto projectAssignmentDto);
 
-    ProjectAssignmentDto getById(Long id);
+    ProjectAssignmentDto getProjectAssignmentsById(Long id);
 
-    List<ProjectAssignmentDto> getAll();
+    List<ProjectAssignmentDto> getAllProjectAssignment();
 
     ProjectAssignmentDto update(Long id, ProjectAssignmentDto dto);
 
-    void delete(Long id);
+    void deleteProjectAssignment(Long id);
 }
